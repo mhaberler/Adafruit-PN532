@@ -109,8 +109,12 @@ Adafruit_PN532::Adafruit_PN532(uint8_t clk, uint8_t miso, uint8_t mosi,
 /**************************************************************************/
 Adafruit_PN532::Adafruit_PN532(uint8_t irq, uint8_t reset, TwoWire *theWire)
     : _irq(irq), _reset(reset) {
-  pinMode(_irq, INPUT);
-  pinMode(_reset, OUTPUT);
+  if (_irq > -1) {
+    pinMode(_irq, INPUT);
+  }
+  if (_reset > -1) {
+    pinMode(_reset, OUTPUT);
+  }
   i2c_dev = new Adafruit_I2CDevice(PN532_I2C_ADDRESS, theWire);
 }
 
